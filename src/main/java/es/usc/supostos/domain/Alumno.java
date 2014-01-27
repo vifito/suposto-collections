@@ -1,7 +1,6 @@
 package es.usc.supostos.domain;
 
-
-public class Alumno {
+public class Alumno implements Comparable<Alumno> {
 
     private String nome;
     private String apelido1;
@@ -38,10 +37,48 @@ public class Alumno {
 
     public void setApelido2(String apelido2) {
         this.apelido2 = apelido2;
-    }    
+    }
 
     @Override
     public String toString() {
-        return apelido1 + " " + apelido2 + ", " + nome;
+        return new StringBuilder(apelido1).append(" ").append(apelido2).append(", ").append(nome).toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (!(obj instanceof Alumno)) {
+            return false;
+        }
+
+        Alumno alumno = (Alumno) obj;
+
+        return getNome().equals(alumno.getNome())
+                && getApelido1().equals(alumno.getApelido1())
+                && getApelido2().equals(alumno.getApelido2());
+    }
+
+    @Override
+    public int hashCode() {
+        return nome.hashCode() + apelido1.hashCode() + apelido2.hashCode();
+    }
+
+    @Override
+    public int compareTo(Alumno o) {
+        int result = apelido1.compareTo(o.getApelido1());
+
+        if (result == 0) {
+            result = apelido2.compareTo(o.getApelido2());
+
+            if (result == 0) {
+                result = nome.compareTo(o.getNome());
+            }
+        }
+
+        return result;
+    }
+
 }

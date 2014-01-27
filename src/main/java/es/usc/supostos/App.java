@@ -15,11 +15,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.StringTokenizer;
+import java.util.TreeSet;
 
 /**
  * Suposto sobre collections
@@ -37,7 +36,7 @@ public class App {
         App app = new App();
         
         // Cargar lista de alumnos do ficheiro /datos.csv (dentro jar)
-        List<Alumno> alumnoList;
+        TreeSet<Alumno> alumnoList;
         alumnoList = app.loadFile();
                 
         System.out.println("Lista de alumnos: ");
@@ -47,11 +46,14 @@ public class App {
 
     /**
      * Cargar de ficheiro os datos dos usuarios
+     * Solucion: 
+     *      En vez de cargar a una Lista cargamos en TreeSet
+     *      Ordenado (Sorted) y elimina duplicados
      *
      * @return
      */
-    public List<Alumno> loadFile() {
-        List<Alumno> alumnos = new ArrayList<Alumno>();
+    public TreeSet<Alumno> loadFile() {
+        TreeSet<Alumno> alumnos = new TreeSet<Alumno>();
 
         // Método para cargar un ficheiro incluído no jar
         InputStream is = getClass().getResourceAsStream("/datos.csv");
